@@ -4,7 +4,7 @@
 * Edited By: Ryan Biesty
 
 This sample code implements the IoT client device connection with the cloud, and perform serverless computing in the cloud backend as shown in this diagram:
-![Figure](/Resources/Picture1.png)
+![Figure](Computer_Engineering_181/IoTCloudConnect/Resources/Picture1.png)
 
 ## IoT Python Client
 Activate the python virtual environment, install the required Python packages based on the [requirements](/iotpython/requirements.txt)
