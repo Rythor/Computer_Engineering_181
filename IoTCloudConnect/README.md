@@ -1,7 +1,7 @@
 # IoTCloudConnect
-Source: Prof. Kaikai Liu
-Repository Link: https://github.com/lkk688/IoTCloudConnect
-Edited By: Ryan Biesty
+* Source: Prof. Kaikai Liu
+* Repository Link: https://github.com/lkk688/IoTCloudConnect
+* Edited By: Ryan Biesty
 
 This sample code implements the IoT client device connection with the cloud, and perform serverless computing in the cloud backend as shown in this diagram:
 ![Figure](/Resources/Picture1.png)
