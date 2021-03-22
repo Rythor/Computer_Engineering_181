@@ -27,11 +27,11 @@ nodejsclient % node index.js mqttDeviceDemo
 Use the sub.py code to receive the realtime data from the IoT client, this can be used to check whether the Cloud received the data or not. 
 1. Before you run the code, you need to link the service account credential in the command line: 
 ```bash
-export GOOGLE_APPLICATION_CREDENTIALS=XXX/certs/cmpe-181-hw1-rbiesty-0ed8459c6103.json
+% export GOOGLE_APPLICATION_CREDENTIALS=XXX/certs/cmpe-181-hw1-rbiesty-0ed8459c6103.json
 ```
 2. setup the subscription for Pubsub in the command line: 
 ```bash
-gcloud pubsub subscriptions create projects/cmpe-181-hw1-rbiesty/subscriptions/CMPE181RB-subscription --topic=projects/cmpe-181-hw1-rbiesty/topics/CMPEIoTdeviceRB
+% gcloud pubsub subscriptions create projects/cmpe-181-hw1-rbiesty/subscriptions/CMPE181RB-subscription --topic=projects/cmpe-181-hw1-rbiesty/topics/CMPEIoTdeviceRB
 ```
 3. Run your IoT client code to send continuous data to the cloud, in another terminal, run the [gcpsub.py](/pyclient/gcpsub.py) to receive the realtime data from the IoT client
 ```bash
@@ -64,7 +64,7 @@ gcpnodefunction % gcloud functions deploy IoTdeviceHTTPApi --runtime nodejs10 --
 ```
 You can check the HTTP api (url address) via
 ```bash
-gcloud functions describe IoTdeviceHTTPApi
+% gcloud functions describe IoTdeviceHTTPApi
 ```
 Using the following curl POST command to test the send command to IoT devices (make sure your IoT device is running)
 ```bash
@@ -74,11 +74,11 @@ Using the following curl POST command to test the send command to IoT devices (m
 ### HTTP Backend
 Add the httpApi in [index.js](/gcpnodefunction/index.js) code, write the REST API, add create, read, update, and delete (CRUD) note to Firestore database. Run the following code to deploy the HTTP based cloud function. HTTP message will trigger this cloud function
 ```bash
-gcpnodefunction %gcloud functions deploy httpApi --runtime nodejs10 --trigger-http
+gcpnodefunction % gcloud functions deploy httpApi --runtime nodejs10 --trigger-http
 ```
 You can check the HTTP api (url address) via
 ```bash
-gcloud functions describe httpApi
+% gcloud functions describe httpApi
 ```
 1. Using the following curl command to test the HTTP GET api to read all sensor data:
 ```bash
@@ -96,13 +96,13 @@ No such document!
 ```
 3. Test the POST API, add the sensor data in the data field ('-d') using the json format. This sensor data will be saved into the Firestore.
 ```bash
-curl -X POST 'https://us-central1-cmpe-181-hw1-rbiesty.cloudfunctions.net/httpApi?id=testsensor03' -H "content-type:application/json" -d '{"bodydata":{"sensor":"humidity","value":"96"}}'
+% curl -X POST 'https://us-central1-cmpe-181-hw1-rbiesty.cloudfunctions.net/httpApi?id=testsensor03' -H "content-type:application/json" -d '{"bodydata":{"sensor":"humidity","value":"96"}}'
 
 {"name":"testsensor03","sensors":{"sensor":"humidity","value":"96"},"time":"2021-03-07T07:42:47.040Z"}%
 ```
 4. Test the PUT API to change the value of the data for a specific sensor
 ```bash
-curl -X PUT 'https://us-central1-cmpe-181-hw1-rbiesty.cloudfunctions.net/httpApi?id=testsensor02' -H "content-type:application/json" -d '{"bodydata":{"sensor":"humidity","value":"99"}}'
+% curl -X PUT 'https://us-central1-cmpe-181-hw1-rbiesty.cloudfunctions.net/httpApi?id=testsensor02' -H "content-type:application/json" -d '{"bodydata":{"sensor":"humidity","value":"99"}}'
 
 {"name":"testsensor02","sensors":{"sensor":"humidity","value":"99"},"time":"2021-03-07T07:36:11.091Z"}
 ```
