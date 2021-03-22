@@ -160,7 +160,7 @@ def cloudstorage_demo(args):
     # Instantiates a google cloud client
     storage_client = storage.Client()
     #upload image to an existing bucket
-    bucketexist = storage_client.bucket('cmpelkk_imagetest')
+    bucketexist = storage_client.bucket('cmperb_imagetest')
     blobexist = bucketexist.blob('sjsu/img1.jpg')
 
     for filename in os.listdir('./data'):
@@ -243,29 +243,48 @@ def mqtt_device_demo(args):
         #     client.loop()
     # [END iot_mqtt_run]
 
+# EDIT
 def read_sensor(count):
-    tempF = 20 + 0.2*count + (random.random() * 15)
-    humidity = 60 + 0.3*count+ (random.random() * 20)
-    temp = '{0:0.2f}'.format(tempF)
-    hum = '{0:0.2f}'.format(humidity)
-    sensorZipCode = 95192#"94043"
-    sensorLat = 37.3382082+ (random.random() /100)#"37.421655"
-    sensorLong = -121.8863286 + (random.random() /100)#"-122.085637"
-    sensorLatf = '{0:0.6f}'.format(sensorLat)
-    sensorLongf = '{0:0.6f}'.format(sensorLong)
-    return (temp, hum, sensorZipCode, sensorLatf, sensorLongf)
+    cmd = 'date'
+    date  = os.popen(cmd).read()
+    cmd = 'sysctl -a | grep machdep.cpu.brand_string'
+    cpu_Brand  = os.popen(cmd).read()
+    cmd = 'ipconfig getifaddr en0'
+    ip = os.popen(cmd).read()
+    cmd = 'sysctl kern.boottime'
+    boot_time = os.popen(cmd).read()
+    cmd = 'sysctl kern.waketime'
+    wake_time = os.popen(cmd).read()
+    # Extra
+    # tempF = 20 + 0.2*count + (random.random() * 15)
+    # humidity = 60 + 0.3*count+ (random.random() * 20)
+    # temp = '{0:0.2f}'.format(tempF)
+    # hum = '{0:0.2f}'.format(humidity)
+    # sensorZipCode = 94043
+    # sensorLat = 37.3382082+ (random.random() /100)#"37.421655"
+    # sensorLong = -121.8863286 + (random.random() /100)#"-122.085637"
+    # sensorLatf = '{0:0.6f}'.format(sensorLat)
+    # sensorLongf = '{0:0.6f}'.format(sensorLong)
+    # return (temp, hum, sensorZipCode, sensorLatf, sensorLongf)
+    return (date, cpu_Brand, ip, boot_time, wake_time)
 
-def createJSON(reg_id, dev_id, timestamp, zip, lat, long, temperature, humidity, img_file):
+# EDIT
+def createJSON(reg_id, dev_id, timestamp, date, cpu_Brand, ip, boot_time, wake_time):
     data = {
       'registry_id' : reg_id,
       'device_id' : dev_id,
       'timecollected' : timestamp,
-      'zipcode' : zip,
-      'latitude' : lat,
-      'longitude' : long,
-      'temperature' : temperature,
-      'humidity' : humidity,
-      'image_file' : img_file
+      'date' : date,
+      'cpu_Brand' : cpu_Brand,
+      'ip' : ip,
+      'boot_time' : boot_time,
+      'wake_time' : wake_time
+      #   'zipcode' : zip,
+      #   'latitude' : lat,
+      #   'longitude' : long,
+      #   'temperature' : temperature,
+      #   'humidity' : humidity,
+      #   'image_file' : img_file,
     }
 
     json_str = json.dumps(data)
@@ -313,10 +332,11 @@ def storage_mqtt_device_demo(args):
           # Process network events.
         client.loop()
 
+        # EDIT
         currentTime = datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
-        (temp, hum, sensorZipCode, sensorLat, sensorLong) = read_sensor(i)
-        #(id, timestamp, zip, lat, long, temperature, humidity, img_file)
-        payloadJSON = createJSON(args.registry_id, args.device_id, currentTime, sensorZipCode, sensorLat, sensorLong, temp, hum, bucketfilename)
+        (date, cpu_Brand, ip, boot_time, wake_time) = read_sensor(i)
+        #(id, timestamp, date, cpu_Brand, ip, boot_time, wake_time)
+        payloadJSON = createJSON(args.registry_id, args.device_id, currentTime, date, cpu_Brand, ip, boot_time, wake_time)
 
         #payload = '{}/{}-image-{}'.format(args.registry_id, args.device_id, i)
         print('Publishing message {}/: \'{}\''.format(
@@ -365,10 +385,11 @@ def bigquery_mqtt_device_demo(args):
         
         client.loop()
 
+        # EDIT
         currentTime = datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
-        (temp, hum, sensorZipCode, sensorLat, sensorLong) = read_sensor(i)
-        #(id, timestamp, zip, lat, long, temperature, humidity, img_file)
-        payloadJSON = createJSON(args.registry_id, args.device_id, currentTime, sensorZipCode, sensorLat, sensorLong, temp, hum, bucketfilename)
+        (date, cpu_Brand, ip, boot_time, wake_time) = read_sensor(i)
+        #(id, timestamp, date, cpu_Brand, ip, boot_time, wake_time
+        payloadJSON = createJSON(args.registry_id, args.device_id, currentTime, date, cpu_Brand, ip, boot_time, wake_time)
 
         #payload = '{}/{}-image-{}'.format(args.registry_id, args.device_id, i)
         print('Publishing message {}/: \'{}\''.format(
