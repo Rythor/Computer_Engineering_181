@@ -14,4 +14,7 @@ STEMMA Soil Sensor | https://www.adafruit.com/product/4026
 * DHT22: https://github.com/adafruit/Adafruit_CircuitPython_DHT/blob/master/examples/dht_simpletest.py
 * STEMMA: https://github.com/adafruit/Adafruit_CircuitPython_seesaw/blob/master/examples/seesaw_soil_simpletest.py
 
+## Schematic
+![Figure](./Resources/Project_Schematic.png)
+
 
