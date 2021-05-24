@@ -31,7 +31,7 @@ pyclient % python3 read_sensors.py
 * Setup AWS Thing, Rules, IAM, DynamoDB, etc.
 * Edit publish.py with your certificate name.
 ![Figure](./Resources/Update_Credentials.png)
-* Place certificates in the Certificates folder.
+* Place or update certificates in the certificates folder.
 * Run publish.py.
 ```bash
 pyclient % python3 publish.py
