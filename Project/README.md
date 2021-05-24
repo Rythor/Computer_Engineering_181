@@ -17,4 +17,23 @@ STEMMA Soil Sensor | https://www.adafruit.com/product/4026
 ## Schematic:
 ![Figure](./Resources/Project_Schematic.png)
 
-
+## Running the Project
+* Setup Raspberry Pi and clone the repository.
+* Go to the folder Code.
+* Run the raspi-blinka.py to check, update, and install all the necessary libraries needed for the project.
+```bash
+pyclient % python3 raspi-blinka.py
+```
+* To test that the senors are functioning properly run read_sensors.py.
+```bash
+pyclient % python3 read_sensors.py
+```
+* Setup AWS Thing, Rules, IAM, DynamoDB, etc.
+* Edit publish.py with your certificate name.
+![Figure](./Resources/Update_Credentials.png)
+* Place certificates in the Certificates folder.
+* Run publish.py.
+```bash
+pyclient % python3 publish.py
+```
+* View published data via the AWS IoT Core Test > Subscribe to topic.
